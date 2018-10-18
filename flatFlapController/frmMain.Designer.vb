@@ -24,6 +24,12 @@ Partial Class formMain
     Private Sub InitializeComponent()
         Me.buttonExit = New System.Windows.Forms.Button()
         Me.groupSerialFeedback = New System.Windows.Forms.GroupBox()
+        Me.buttonConnect = New System.Windows.Forms.Button()
+        Me.buttonReset = New System.Windows.Forms.Button()
+        Me.buttonStats = New System.Windows.Forms.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.comboPort = New System.Windows.Forms.ComboBox()
+        Me.buttonFeedback = New System.Windows.Forms.Button()
         Me.textSerialData = New System.Windows.Forms.TextBox()
         Me.buttonFlap = New System.Windows.Forms.Button()
         Me.buttonEL = New System.Windows.Forms.Button()
@@ -35,12 +41,7 @@ Partial Class formMain
         Me.textOpenPosition = New System.Windows.Forms.TextBox()
         Me.buttonLED = New System.Windows.Forms.Button()
         Me.comboLED = New System.Windows.Forms.ComboBox()
-        Me.buttonFeedback = New System.Windows.Forms.Button()
-        Me.comboPort = New System.Windows.Forms.ComboBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.buttonStats = New System.Windows.Forms.Button()
-        Me.buttonReset = New System.Windows.Forms.Button()
-        Me.buttonConnect = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.groupSerialFeedback.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -68,6 +69,60 @@ Partial Class formMain
         Me.groupSerialFeedback.TabIndex = 2
         Me.groupSerialFeedback.TabStop = False
         Me.groupSerialFeedback.Text = "Serial Feedback"
+        '
+        'buttonConnect
+        '
+        Me.buttonConnect.Location = New System.Drawing.Point(501, 147)
+        Me.buttonConnect.Name = "buttonConnect"
+        Me.buttonConnect.Size = New System.Drawing.Size(75, 23)
+        Me.buttonConnect.TabIndex = 19
+        Me.buttonConnect.Text = "Connect"
+        Me.buttonConnect.UseVisualStyleBackColor = True
+        '
+        'buttonReset
+        '
+        Me.buttonReset.Location = New System.Drawing.Point(501, 216)
+        Me.buttonReset.Name = "buttonReset"
+        Me.buttonReset.Size = New System.Drawing.Size(75, 23)
+        Me.buttonReset.TabIndex = 18
+        Me.buttonReset.Text = "Reset"
+        Me.buttonReset.UseVisualStyleBackColor = True
+        '
+        'buttonStats
+        '
+        Me.buttonStats.Location = New System.Drawing.Point(501, 178)
+        Me.buttonStats.Name = "buttonStats"
+        Me.buttonStats.Size = New System.Drawing.Size(75, 23)
+        Me.buttonStats.TabIndex = 17
+        Me.buttonStats.Text = "Values"
+        Me.buttonStats.UseVisualStyleBackColor = True
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(498, 104)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(55, 13)
+        Me.Label1.TabIndex = 16
+        Me.Label1.Text = "Serial Port"
+        '
+        'comboPort
+        '
+        Me.comboPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboPort.FormattingEnabled = True
+        Me.comboPort.Location = New System.Drawing.Point(501, 120)
+        Me.comboPort.Name = "comboPort"
+        Me.comboPort.Size = New System.Drawing.Size(75, 21)
+        Me.comboPort.TabIndex = 15
+        '
+        'buttonFeedback
+        '
+        Me.buttonFeedback.Location = New System.Drawing.Point(501, 22)
+        Me.buttonFeedback.Name = "buttonFeedback"
+        Me.buttonFeedback.Size = New System.Drawing.Size(75, 53)
+        Me.buttonFeedback.TabIndex = 14
+        Me.buttonFeedback.Text = "Toggle Feedback"
+        Me.buttonFeedback.UseVisualStyleBackColor = True
         '
         'textSerialData
         '
@@ -168,65 +223,21 @@ Partial Class formMain
         Me.comboLED.Size = New System.Drawing.Size(72, 21)
         Me.comboLED.TabIndex = 15
         '
-        'buttonFeedback
+        'Button1
         '
-        Me.buttonFeedback.Location = New System.Drawing.Point(501, 22)
-        Me.buttonFeedback.Name = "buttonFeedback"
-        Me.buttonFeedback.Size = New System.Drawing.Size(75, 53)
-        Me.buttonFeedback.TabIndex = 14
-        Me.buttonFeedback.Text = "Toggle Feedback"
-        Me.buttonFeedback.UseVisualStyleBackColor = True
-        '
-        'comboPort
-        '
-        Me.comboPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.comboPort.FormattingEnabled = True
-        Me.comboPort.Location = New System.Drawing.Point(501, 120)
-        Me.comboPort.Name = "comboPort"
-        Me.comboPort.Size = New System.Drawing.Size(75, 21)
-        Me.comboPort.TabIndex = 15
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(498, 104)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(55, 13)
-        Me.Label1.TabIndex = 16
-        Me.Label1.Text = "Serial Port"
-        '
-        'buttonStats
-        '
-        Me.buttonStats.Location = New System.Drawing.Point(501, 178)
-        Me.buttonStats.Name = "buttonStats"
-        Me.buttonStats.Size = New System.Drawing.Size(75, 23)
-        Me.buttonStats.TabIndex = 17
-        Me.buttonStats.Text = "Values"
-        Me.buttonStats.UseVisualStyleBackColor = True
-        '
-        'buttonReset
-        '
-        Me.buttonReset.Location = New System.Drawing.Point(501, 216)
-        Me.buttonReset.Name = "buttonReset"
-        Me.buttonReset.Size = New System.Drawing.Size(75, 23)
-        Me.buttonReset.TabIndex = 18
-        Me.buttonReset.Text = "Reset"
-        Me.buttonReset.UseVisualStyleBackColor = True
-        '
-        'buttonConnect
-        '
-        Me.buttonConnect.Location = New System.Drawing.Point(501, 147)
-        Me.buttonConnect.Name = "buttonConnect"
-        Me.buttonConnect.Size = New System.Drawing.Size(75, 23)
-        Me.buttonConnect.TabIndex = 19
-        Me.buttonConnect.Text = "Connect"
-        Me.buttonConnect.UseVisualStyleBackColor = True
+        Me.Button1.Location = New System.Drawing.Point(524, 298)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 16
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'formMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(631, 399)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.comboLED)
         Me.Controls.Add(Me.buttonLED)
         Me.Controls.Add(Me.textOpenPosition)
@@ -267,4 +278,5 @@ Partial Class formMain
     Friend WithEvents buttonStats As Button
     Friend WithEvents buttonReset As Button
     Friend WithEvents buttonConnect As Button
+    Friend WithEvents Button1 As Button
 End Class
