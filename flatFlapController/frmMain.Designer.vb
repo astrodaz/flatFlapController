@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class formMain
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class formMain
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.buttonExit = New System.Windows.Forms.Button()
         Me.groupSerialFeedback = New System.Windows.Forms.GroupBox()
@@ -29,19 +29,17 @@ Partial Class formMain
         Me.buttonStats = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.comboPort = New System.Windows.Forms.ComboBox()
-        Me.buttonFeedback = New System.Windows.Forms.Button()
         Me.textSerialData = New System.Windows.Forms.TextBox()
         Me.buttonFlap = New System.Windows.Forms.Button()
         Me.buttonEL = New System.Windows.Forms.Button()
         Me.buttonNudgeCW = New System.Windows.Forms.Button()
         Me.buttonNudgeCCW = New System.Windows.Forms.Button()
-        Me.txtNudgeValue = New System.Windows.Forms.TextBox()
+        Me.textNudgeValue = New System.Windows.Forms.TextBox()
         Me.buttonSetZero = New System.Windows.Forms.Button()
         Me.buttonSetOpenPosition = New System.Windows.Forms.Button()
         Me.textOpenPosition = New System.Windows.Forms.TextBox()
         Me.buttonLED = New System.Windows.Forms.Button()
         Me.comboLED = New System.Windows.Forms.ComboBox()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.groupSerialFeedback.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -61,7 +59,6 @@ Partial Class formMain
         Me.groupSerialFeedback.Controls.Add(Me.buttonStats)
         Me.groupSerialFeedback.Controls.Add(Me.Label1)
         Me.groupSerialFeedback.Controls.Add(Me.comboPort)
-        Me.groupSerialFeedback.Controls.Add(Me.buttonFeedback)
         Me.groupSerialFeedback.Controls.Add(Me.textSerialData)
         Me.groupSerialFeedback.Location = New System.Drawing.Point(20, 21)
         Me.groupSerialFeedback.Name = "groupSerialFeedback"
@@ -72,7 +69,7 @@ Partial Class formMain
         '
         'buttonConnect
         '
-        Me.buttonConnect.Location = New System.Drawing.Point(501, 147)
+        Me.buttonConnect.Location = New System.Drawing.Point(504, 68)
         Me.buttonConnect.Name = "buttonConnect"
         Me.buttonConnect.Size = New System.Drawing.Size(75, 23)
         Me.buttonConnect.TabIndex = 19
@@ -94,13 +91,13 @@ Partial Class formMain
         Me.buttonStats.Name = "buttonStats"
         Me.buttonStats.Size = New System.Drawing.Size(75, 23)
         Me.buttonStats.TabIndex = 17
-        Me.buttonStats.Text = "Values"
+        Me.buttonStats.Text = "Get Values"
         Me.buttonStats.UseVisualStyleBackColor = True
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(498, 104)
+        Me.Label1.Location = New System.Drawing.Point(501, 25)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(55, 13)
         Me.Label1.TabIndex = 16
@@ -110,19 +107,10 @@ Partial Class formMain
         '
         Me.comboPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboPort.FormattingEnabled = True
-        Me.comboPort.Location = New System.Drawing.Point(501, 120)
+        Me.comboPort.Location = New System.Drawing.Point(504, 41)
         Me.comboPort.Name = "comboPort"
         Me.comboPort.Size = New System.Drawing.Size(75, 21)
         Me.comboPort.TabIndex = 15
-        '
-        'buttonFeedback
-        '
-        Me.buttonFeedback.Location = New System.Drawing.Point(501, 22)
-        Me.buttonFeedback.Name = "buttonFeedback"
-        Me.buttonFeedback.Size = New System.Drawing.Size(75, 53)
-        Me.buttonFeedback.TabIndex = 14
-        Me.buttonFeedback.Text = "Toggle Feedback"
-        Me.buttonFeedback.UseVisualStyleBackColor = True
         '
         'textSerialData
         '
@@ -171,13 +159,13 @@ Partial Class formMain
         Me.buttonNudgeCCW.Text = "Nudge CCW"
         Me.buttonNudgeCCW.UseVisualStyleBackColor = True
         '
-        'txtNudgeValue
+        'textNudgeValue
         '
-        Me.txtNudgeValue.Location = New System.Drawing.Point(151, 330)
-        Me.txtNudgeValue.MaxLength = 2
-        Me.txtNudgeValue.Name = "txtNudgeValue"
-        Me.txtNudgeValue.Size = New System.Drawing.Size(53, 20)
-        Me.txtNudgeValue.TabIndex = 9
+        Me.textNudgeValue.Location = New System.Drawing.Point(151, 330)
+        Me.textNudgeValue.MaxLength = 2
+        Me.textNudgeValue.Name = "textNudgeValue"
+        Me.textNudgeValue.Size = New System.Drawing.Size(53, 20)
+        Me.textNudgeValue.TabIndex = 9
         '
         'buttonSetZero
         '
@@ -223,27 +211,17 @@ Partial Class formMain
         Me.comboLED.Size = New System.Drawing.Size(72, 21)
         Me.comboLED.TabIndex = 15
         '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(524, 298)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 16
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'formMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(631, 399)
-        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.comboLED)
         Me.Controls.Add(Me.buttonLED)
         Me.Controls.Add(Me.textOpenPosition)
         Me.Controls.Add(Me.buttonSetOpenPosition)
         Me.Controls.Add(Me.buttonSetZero)
-        Me.Controls.Add(Me.txtNudgeValue)
+        Me.Controls.Add(Me.textNudgeValue)
         Me.Controls.Add(Me.buttonNudgeCCW)
         Me.Controls.Add(Me.buttonNudgeCW)
         Me.Controls.Add(Me.buttonEL)
@@ -266,7 +244,7 @@ Partial Class formMain
     Friend WithEvents buttonEL As Button
     Friend WithEvents buttonNudgeCW As Button
     Friend WithEvents buttonNudgeCCW As Button
-    Friend WithEvents txtNudgeValue As TextBox
+    Friend WithEvents textNudgeValue As TextBox
     Friend WithEvents buttonSetZero As Button
     Friend WithEvents buttonSetOpenPosition As Button
     Friend WithEvents textOpenPosition As TextBox
@@ -274,9 +252,7 @@ Partial Class formMain
     Friend WithEvents comboLED As ComboBox
     Friend WithEvents Label1 As Label
     Friend WithEvents comboPort As ComboBox
-    Friend WithEvents buttonFeedback As Button
     Friend WithEvents buttonStats As Button
     Friend WithEvents buttonReset As Button
     Friend WithEvents buttonConnect As Button
-    Friend WithEvents Button1 As Button
 End Class
