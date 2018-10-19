@@ -2,16 +2,16 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
   <Profiles />
   <Settings>
-    <Setting Name="userLED" Type="System.Byte" Scope="User">
+    <Setting Name="userLED" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="userOpenPosition" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2000</Value>
     </Setting>
-    <Setting Name="userNudge" Type="System.Byte" Scope="User">
+    <Setting Name="userNudge" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">50</Value>
     </Setting>
-    <Setting Name="userPort" Type="System.Byte" Scope="User">
+    <Setting Name="userPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>

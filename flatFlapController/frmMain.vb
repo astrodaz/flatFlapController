@@ -2,6 +2,8 @@
 
     ' Declare the serial port
     Dim serialPort As New IO.Ports.SerialPort
+    Dim IN_USE As Boolean
+
 
     Private Sub buttonExit_Click(sender As Object, e As EventArgs) Handles buttonExit.Click
         Application.Exit()
@@ -39,6 +41,9 @@
         ' Update the UI
         UpdateUI()
 
+        ' No commands currently in use
+        IN_USE = False
+
     End Sub
 
 
@@ -67,14 +72,23 @@
     Private Sub buttonConnect_Click(sender As Object, e As EventArgs) Handles buttonConnect.Click
 
         ' Save the settings
-        My.Settings("userPort") = comboPort.SelectedIndex
-        My.Settings.Save()
+        If My.Settings("userPort") <> comboPort.SelectedIndex Then
+            My.Settings("userPort") = comboPort.SelectedIndex
+            My.Settings.Save()
+        End If
 
-        ' Open the COM Port
-        serialPort.BaudRate = 9600
-        serialPort.ReadTimeout = 10000
-        serialPort.Open()
-        serialPort.Write(":HH#")
+        If buttonConnect.Text = "Connect" Then
+            ' Open the COM Port
+            serialPort.BaudRate = 9600
+            serialPort.ReadTimeout = 10000
+            serialPort.Open()
+            serialPort.Write(":HH#")
+        Else
+            If Not IN_USE Then serialPort.Close()
+        End If
+
+        ' Update the UI
+        UpdateUI()
 
 
     End Sub
@@ -83,6 +97,9 @@
 
         Dim serialData As String
         serialPort.Write(":TF#")
+        IN_USE = True
+        UpdateUI()
+
         serialData = serialPort.ReadLine()
         textSerialData.Text += serialData
         parseSerialData(serialData)
@@ -149,7 +166,7 @@
             comboLED.Enabled = False
             buttonStats.Enabled = False
             buttonReset.Enabled = False
-        Else
+        ElseIf Not IN_USE Then
             buttonConnect.Enabled = True
             buttonConnect.Text = "Disconnect"
             buttonExit.Enabled = False
@@ -184,5 +201,9 @@
 
 
 
+    End Sub
+
+    Private Sub buttonNudgeCW_Click(sender As Object, e As EventArgs) Handles buttonNudgeCW.Click
+        IN_USE = False
     End Sub
 End Class

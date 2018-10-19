@@ -57,9 +57,9 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-        Public Property userLED() As Byte
+        Public Property userLED() As Integer
             Get
-                Return CType(Me("userLED"),Byte)
+                Return CType(Me("userLED"),Integer)
             End Get
             Set
                 Me("userLED") = value
@@ -81,9 +81,9 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("50")>  _
-        Public Property userNudge() As Byte
+        Public Property userNudge() As Integer
             Get
-                Return CType(Me("userNudge"),Byte)
+                Return CType(Me("userNudge"),Integer)
             End Get
             Set
                 Me("userNudge") = value
@@ -93,9 +93,9 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-        Public Property userPort() As Byte
+        Public Property userPort() As Integer
             Get
-                Return CType(Me("userPort"),Byte)
+                Return CType(Me("userPort"),Integer)
             End Get
             Set
                 Me("userPort") = value
