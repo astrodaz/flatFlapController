@@ -40,6 +40,8 @@ Partial Class formMain
         Me.textOpenPosition = New System.Windows.Forms.TextBox()
         Me.buttonLED = New System.Windows.Forms.Button()
         Me.comboLED = New System.Windows.Forms.ComboBox()
+        Me.labelStatus = New System.Windows.Forms.Label()
+        Me.buttonHello = New System.Windows.Forms.Button()
         Me.groupSerialFeedback.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -54,6 +56,7 @@ Partial Class formMain
         '
         'groupSerialFeedback
         '
+        Me.groupSerialFeedback.Controls.Add(Me.buttonHello)
         Me.groupSerialFeedback.Controls.Add(Me.buttonConnect)
         Me.groupSerialFeedback.Controls.Add(Me.buttonReset)
         Me.groupSerialFeedback.Controls.Add(Me.buttonStats)
@@ -82,6 +85,7 @@ Partial Class formMain
         Me.buttonReset.Name = "buttonReset"
         Me.buttonReset.Size = New System.Drawing.Size(75, 23)
         Me.buttonReset.TabIndex = 18
+        Me.buttonReset.Tag = "control"
         Me.buttonReset.Text = "Reset"
         Me.buttonReset.UseVisualStyleBackColor = True
         '
@@ -91,6 +95,7 @@ Partial Class formMain
         Me.buttonStats.Name = "buttonStats"
         Me.buttonStats.Size = New System.Drawing.Size(75, 23)
         Me.buttonStats.TabIndex = 17
+        Me.buttonStats.Tag = "control"
         Me.buttonStats.Text = "Get Values"
         Me.buttonStats.UseVisualStyleBackColor = True
         '
@@ -129,6 +134,7 @@ Partial Class formMain
         Me.buttonFlap.Name = "buttonFlap"
         Me.buttonFlap.Size = New System.Drawing.Size(75, 23)
         Me.buttonFlap.TabIndex = 3
+        Me.buttonFlap.Tag = "control"
         Me.buttonFlap.Text = "Flap"
         Me.buttonFlap.UseVisualStyleBackColor = False
         '
@@ -138,6 +144,7 @@ Partial Class formMain
         Me.buttonEL.Name = "buttonEL"
         Me.buttonEL.Size = New System.Drawing.Size(75, 23)
         Me.buttonEL.TabIndex = 4
+        Me.buttonEL.Tag = "control"
         Me.buttonEL.Text = "EL Panel"
         Me.buttonEL.UseVisualStyleBackColor = True
         '
@@ -147,6 +154,7 @@ Partial Class formMain
         Me.buttonNudgeCW.Name = "buttonNudgeCW"
         Me.buttonNudgeCW.Size = New System.Drawing.Size(75, 23)
         Me.buttonNudgeCW.TabIndex = 7
+        Me.buttonNudgeCW.Tag = "control"
         Me.buttonNudgeCW.Text = "Nudge CW"
         Me.buttonNudgeCW.UseVisualStyleBackColor = True
         '
@@ -156,6 +164,7 @@ Partial Class formMain
         Me.buttonNudgeCCW.Name = "buttonNudgeCCW"
         Me.buttonNudgeCCW.Size = New System.Drawing.Size(75, 23)
         Me.buttonNudgeCCW.TabIndex = 8
+        Me.buttonNudgeCCW.Tag = "control"
         Me.buttonNudgeCCW.Text = "Nudge CCW"
         Me.buttonNudgeCCW.UseVisualStyleBackColor = True
         '
@@ -166,6 +175,7 @@ Partial Class formMain
         Me.textNudgeValue.Name = "textNudgeValue"
         Me.textNudgeValue.Size = New System.Drawing.Size(53, 20)
         Me.textNudgeValue.TabIndex = 9
+        Me.textNudgeValue.Tag = "control"
         '
         'buttonSetZero
         '
@@ -173,6 +183,7 @@ Partial Class formMain
         Me.buttonSetZero.Name = "buttonSetZero"
         Me.buttonSetZero.Size = New System.Drawing.Size(75, 23)
         Me.buttonSetZero.TabIndex = 10
+        Me.buttonSetZero.Tag = "control"
         Me.buttonSetZero.Text = "Set Zero"
         Me.buttonSetZero.UseVisualStyleBackColor = True
         '
@@ -182,6 +193,7 @@ Partial Class formMain
         Me.buttonSetOpenPosition.Name = "buttonSetOpenPosition"
         Me.buttonSetOpenPosition.Size = New System.Drawing.Size(75, 23)
         Me.buttonSetOpenPosition.TabIndex = 11
+        Me.buttonSetOpenPosition.Tag = "control"
         Me.buttonSetOpenPosition.Text = "Set Open"
         Me.buttonSetOpenPosition.UseVisualStyleBackColor = True
         '
@@ -192,6 +204,7 @@ Partial Class formMain
         Me.textOpenPosition.Name = "textOpenPosition"
         Me.textOpenPosition.Size = New System.Drawing.Size(55, 20)
         Me.textOpenPosition.TabIndex = 12
+        Me.textOpenPosition.Tag = "control"
         '
         'buttonLED
         '
@@ -199,6 +212,7 @@ Partial Class formMain
         Me.buttonLED.Name = "buttonLED"
         Me.buttonLED.Size = New System.Drawing.Size(75, 23)
         Me.buttonLED.TabIndex = 14
+        Me.buttonLED.Tag = "control"
         Me.buttonLED.Text = "Set LED"
         Me.buttonLED.UseVisualStyleBackColor = True
         '
@@ -210,12 +224,31 @@ Partial Class formMain
         Me.comboLED.Name = "comboLED"
         Me.comboLED.Size = New System.Drawing.Size(72, 21)
         Me.comboLED.TabIndex = 15
+        Me.comboLED.Tag = "control"
+        '
+        'labelStatus
+        '
+        Me.labelStatus.AutoSize = True
+        Me.labelStatus.Location = New System.Drawing.Point(8, 403)
+        Me.labelStatus.Name = "labelStatus"
+        Me.labelStatus.Size = New System.Drawing.Size(0, 13)
+        Me.labelStatus.TabIndex = 16
+        '
+        'buttonHello
+        '
+        Me.buttonHello.Location = New System.Drawing.Point(504, 107)
+        Me.buttonHello.Name = "buttonHello"
+        Me.buttonHello.Size = New System.Drawing.Size(75, 23)
+        Me.buttonHello.TabIndex = 20
+        Me.buttonHello.Text = "Hello"
+        Me.buttonHello.UseVisualStyleBackColor = True
         '
         'formMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(631, 399)
+        Me.ClientSize = New System.Drawing.Size(631, 429)
+        Me.Controls.Add(Me.labelStatus)
         Me.Controls.Add(Me.comboLED)
         Me.Controls.Add(Me.buttonLED)
         Me.Controls.Add(Me.textOpenPosition)
@@ -255,4 +288,6 @@ Partial Class formMain
     Friend WithEvents buttonStats As Button
     Friend WithEvents buttonReset As Button
     Friend WithEvents buttonConnect As Button
+    Friend WithEvents labelStatus As Label
+    Friend WithEvents buttonHello As Button
 End Class
