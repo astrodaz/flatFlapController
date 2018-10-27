@@ -24,6 +24,7 @@ Partial Class formMain
     Private Sub InitializeComponent()
         Me.buttonExit = New System.Windows.Forms.Button()
         Me.groupSerialFeedback = New System.Windows.Forms.GroupBox()
+        Me.buttonHello = New System.Windows.Forms.Button()
         Me.buttonConnect = New System.Windows.Forms.Button()
         Me.buttonReset = New System.Windows.Forms.Button()
         Me.buttonStats = New System.Windows.Forms.Button()
@@ -41,7 +42,7 @@ Partial Class formMain
         Me.buttonLED = New System.Windows.Forms.Button()
         Me.comboLED = New System.Windows.Forms.ComboBox()
         Me.labelStatus = New System.Windows.Forms.Label()
-        Me.buttonHello = New System.Windows.Forms.Button()
+        Me.bgwSend = New System.ComponentModel.BackgroundWorker()
         Me.groupSerialFeedback.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -69,6 +70,15 @@ Partial Class formMain
         Me.groupSerialFeedback.TabIndex = 2
         Me.groupSerialFeedback.TabStop = False
         Me.groupSerialFeedback.Text = "Serial Feedback"
+        '
+        'buttonHello
+        '
+        Me.buttonHello.Location = New System.Drawing.Point(504, 107)
+        Me.buttonHello.Name = "buttonHello"
+        Me.buttonHello.Size = New System.Drawing.Size(75, 23)
+        Me.buttonHello.TabIndex = 20
+        Me.buttonHello.Text = "Hello"
+        Me.buttonHello.UseVisualStyleBackColor = True
         '
         'buttonConnect
         '
@@ -234,14 +244,8 @@ Partial Class formMain
         Me.labelStatus.Size = New System.Drawing.Size(0, 13)
         Me.labelStatus.TabIndex = 16
         '
-        'buttonHello
+        'bgwSend
         '
-        Me.buttonHello.Location = New System.Drawing.Point(504, 107)
-        Me.buttonHello.Name = "buttonHello"
-        Me.buttonHello.Size = New System.Drawing.Size(75, 23)
-        Me.buttonHello.TabIndex = 20
-        Me.buttonHello.Text = "Hello"
-        Me.buttonHello.UseVisualStyleBackColor = True
         '
         'formMain
         '
@@ -290,4 +294,5 @@ Partial Class formMain
     Friend WithEvents buttonConnect As Button
     Friend WithEvents labelStatus As Label
     Friend WithEvents buttonHello As Button
+    Friend WithEvents bgwSend As System.ComponentModel.BackgroundWorker
 End Class

@@ -1,0 +1,177 @@
+﻿    '''' Imports System.IO.Ports
+
+    'Public Class Form1
+    '    Dim WithEvents sp As New SerialPort
+    '    Dim isRun As New Threading.ManualResetEvent(False)
+
+    '    Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+    '        Try
+    '            isRun.Reset() 'closing
+    '            'wake the threads
+    '            rcvd.Set()
+    '            procproto.Set()
+    '            'wait on them
+    '            rcvdThrd.Join()
+    '            procprotoThrd.Join()
+    '            If sp.IsOpen Then sp.Close()
+    '        Catch ex As Exception
+
+    '        End Try
+    '    End Sub
+
+    '    Private Sub Form1_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    '        'add port names to combobox
+    '        cboxPN.Items.AddRange(serialPort.GetPortNames)
+    '        'and speeds
+    '        cboxSPD.Items.AddRange([Enum].GetNames(GetType(PortSpeeds)))
+    '        'other setting could be done...
+
+    '        'this thread reads bytes and adds them to the buffer
+    '        rcvdThrd = New Threading.Thread(AddressOf Receive)
+    '        rcvdThrd.IsBackground = True
+
+    '        'this thread examines the buffer to see if a 
+    '        'complete message, as defined by the protocol, is available
+    '        procprotoThrd = New Threading.Thread(AddressOf Protocol)
+    '        procprotoThrd.IsBackground = True
+
+    '        isRun.Set() 'we are running
+    '        procprotoThrd.Start()
+    '        rcvdThrd.Start()
+    '    End Sub
+
+    '    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    '        'open
+    '        If Not sp.IsOpen AndAlso cboxPN.SelectedIndex >= 0 AndAlso cboxSPD.SelectedIndex >= 0 Then
+    '            'port name and speed selected
+    '            With sp
+    '                .PortName = cboxPN.SelectedItem.ToString
+    '                .BaudRate = CInt([Enum].Parse(GetType(PortSpeeds), cboxSPD.SelectedItem.ToString))
+    '                'other settings
+    '                .DataBits = 8
+    '                .Parity = Parity.None
+    '                .StopBits = StopBits.One
+    '                'if using strings this encoding decodes all 8 bit values
+    '                .Encoding = System.Text.Encoding.GetEncoding(28591)
+    '            End With
+    '            Try
+    '                sp.Open()
+    '                sp.DtrEnable = True 'turn DTR on
+    '                Debug.WriteLine("is open")
+    '                sp.WriteLine("This is a test")
+    '            Catch ex As Exception
+    '                'open failed code here
+    '                Debug.WriteLine(ex.Message)
+    '            End Try
+    '        End If
+    '    End Sub
+
+    '    Private Sub sp_DataReceived(sender As Object,
+    '                            e As SerialDataReceivedEventArgs) _
+    '                        Handles sp.DataReceived
+    '        rcvd.Set() 'read the bytes
+    '    End Sub
+
+    '    Dim rcvd As New Threading.AutoResetEvent(False)
+    '    Dim rcvdThrd As Threading.Thread
+    '    Private Sub Receive()
+    '        Do
+    '            If sp.IsOpen Then 'is port open
+    '                Dim numb As Integer = sp.BytesToRead 'number of bytes to read
+    '                If numb > 0 Then
+    '                    Dim temp(numb - 1) As Byte 'create a temporary buffer
+    '                    Try
+    '                        numb = sp.Read(temp, 0, numb) 'read the bytes
+    '                        If numb <> temp.Length Then
+    '                            Array.Resize(temp, numb)
+    '                        End If
+    '                        'add temp buffer to public buffer
+    '                        Threading.Monitor.Enter(bufLock)
+    '                        buf.AddRange(temp)
+    '                        Threading.Monitor.Exit(bufLock)
+    '                        procproto.Set() 'check for possible message
+    '                    Catch ex As Exception
+    '                        'fix error handler
+    '                    End Try
+    '                End If
+    '            End If
+    '            rcvd.WaitOne() 'wait for event handler to fire
+    '        Loop While isRun.WaitOne(0)
+    '    End Sub
+
+    '    Dim buf As New List(Of Byte)
+    '    Dim bufLock As New Object
+
+    '    Dim procproto As New Threading.AutoResetEvent(False)
+    '    Dim procprotoThrd As Threading.Thread
+    '    'in this example the protocol is
+    '    'some number of chars followed by 'eol'
+    '    Private Sub Protocol()
+    '        Const eol As Byte = 10 'EOL = LF
+    '        Do
+    '            If buf.Count > 0 Then 'some data present
+    '                'is it a complete message as defined by our protocol?
+    '                Dim idx As Integer
+    '                Do
+    '                    idx = buf.IndexOf(eol)
+    '                    If idx >= 0 Then 'do I have a EOL?
+    '                        'yes, extract message
+    '                        Dim mess As New System.Text.StringBuilder
+    '                        'get message without EOL and
+    '                        'get rid of processed data in buffer
+    '                        Threading.Monitor.Enter(bufLock)
+    '                        mess.Append(sp.Encoding.GetChars(buf.ToArray, 0, idx))
+    '                        buf.RemoveRange(0, idx + 1)
+    '                        Threading.Monitor.Exit(bufLock)
+    '                        '
+    '                        'process the message, in this case...
+    '                        'show message to user
+
+    '                        Me.BeginInvoke(Sub()
+    '                                           Label1.Text = mess.ToString
+    '                                           Label1.Refresh()
+    '                                       End Sub)
+    '                    End If
+    '                Loop While idx >= 0
+    '            End If
+    '            procproto.WaitOne() 'wait for signal to proccess next potential message
+    '        Loop While isRun.WaitOne(0)
+    '    End Sub
+
+    '    Private Sub sp_ErrorReceived(sender As Object,
+    '                             e As SerialErrorReceivedEventArgs) Handles sp.ErrorReceived
+    '        Debug.WriteLine(e.EventType.ToString)
+    '    End Sub
+
+    '    Private Sub sp_PinChanged(sender As Object,
+    '                          e As SerialPinChangedEventArgs) Handles sp.PinChanged
+    '        Debug.WriteLine(e.EventType.ToString)
+    '    End Sub
+    'End Class
+
+    '''' <summary>
+    '''' enumerates 'standard' port speeds
+    '''' </summary>
+    '''' <remarks>derived from many sources</remarks>
+    'Public Enum PortSpeeds
+    '    b110 = 110
+    '    b300 = 300
+    '    b600 = 600
+    '    b1200 = 1200
+    '    b2400 = 2400
+    '    b4800 = 4800
+    '    b9600 = 9600
+    '    b14400 = 14400
+    '    b19200 = 19200
+    '    b28800 = 28800
+    '    b38400 = 38400
+    '    b56000 = 56000
+    '    b57600 = 57600
+    '    b115200 = 115200
+    '    b128000 = 128000
+    '    b153600 = 153600
+    '    b230400 = 230400
+    '    b256000 = 256000
+    '    b460800 = 460800
+    '    b921600 = 921600
+    'End Enum
