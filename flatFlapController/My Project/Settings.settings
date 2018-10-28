@@ -8,9 +8,6 @@
     <Setting Name="userOpenPosition" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2000</Value>
     </Setting>
-    <Setting Name="userNudge" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">50</Value>
-    </Setting>
     <Setting Name="userPort" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>

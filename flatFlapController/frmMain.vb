@@ -5,6 +5,14 @@ Public Class formMain
 
 
     ''' <summary>
+    ''' 28/10/2018
+    ''' Added the Set to Zero function on Arduino
+    ''' Added the Set Current Position function on Arduino
+    ''' Updated the form
+    ''' Added the buttons for setting spped and acceleration - need to implement on arduino
+    ''' Removed the status label
+    ''' 
+    ''' 
     ''' 27/10/18
     ''' Added a text file with a set of thread code for reading the COM port
     ''' Started to integrate this code into the project
@@ -23,8 +31,11 @@ Public Class formMain
     ''' TO DO
     ''' Test the saving of the COM port value with another serial port device added in
     ''' Find out how to add a new thread to update the UI and add a listener to the portStatus property - NOT NEEDED, SEE UPDATE FOR 27th
-    ''' Add in the Background worker thread to get the serial data back from the Arduino
-    ''' Change the labelStatus for a proper status bar - add the updating into the UI thread
+    ''' 
+    ''' Implement the Acceleration and Speed in Arduino
+    ''' On Arduino change the return from the Flap toggle, return a code that can be interrogated and
+    ''' used to indicate the flap is open or closed
+    ''' 
     ''' 
     ''' 
     ''' </summary>
@@ -126,7 +137,7 @@ Public Class formMain
 
         Try
             _portStatus = STATUS.TRANSMIT
-            bgwSend.RunWorkerAsync(":TF#")
+            mySerialPort.WriteLine(":TF#")
 
         Catch
 
@@ -147,9 +158,6 @@ Public Class formMain
                 buttonExit.Enabled = True
                 buttonFlap.Enabled = False
                 buttonLED.Enabled = False
-                buttonNudgeCCW.Enabled = False
-                buttonNudgeCW.Enabled = False
-                textNudgeValue.Enabled = False
                 textOpenPosition.Enabled = False
                 buttonEL.Enabled = False
                 buttonSetOpenPosition.Enabled = False
@@ -158,6 +166,10 @@ Public Class formMain
                 buttonStats.Enabled = False
                 buttonReset.Enabled = False
                 buttonHello.Enabled = False
+                buttonSetAccel.Enabled = False
+                buttonSetSpeed.Enabled = False
+                textStepperSpeed.Enabled = False
+                textStepperAccel.Enabled = False
 
             Case STATUS.OPEN
                 buttonConnect.Enabled = True
@@ -165,9 +177,6 @@ Public Class formMain
                 buttonExit.Enabled = False
                 buttonFlap.Enabled = True
                 buttonLED.Enabled = True
-                buttonNudgeCCW.Enabled = True
-                buttonNudgeCW.Enabled = True
-                textNudgeValue.Enabled = True
                 textOpenPosition.Enabled = True
                 buttonEL.Enabled = True
                 buttonSetOpenPosition.Enabled = True
@@ -176,19 +185,19 @@ Public Class formMain
                 buttonStats.Enabled = True
                 buttonReset.Enabled = True
                 buttonHello.Enabled = True
+                buttonSetAccel.Enabled = True
+                buttonSetSpeed.Enabled = True
+                textStepperSpeed.Enabled = True
+                textStepperAccel.Enabled = True
 
             Case STATUS.CONNECTING
-                labelStatus.Text = "Connecting To Arduino"
+
 
             Case STATUS.TRANSMIT, STATUS.RECEIVE
                 buttonConnect.Enabled = False
-                labelStatus.Text = "Communicating with Arduino"
                 buttonExit.Enabled = False
                 buttonFlap.Enabled = False
                 buttonLED.Enabled = False
-                buttonNudgeCCW.Enabled = False
-                buttonNudgeCW.Enabled = False
-                textNudgeValue.Enabled = False
                 textOpenPosition.Enabled = False
                 buttonEL.Enabled = False
                 buttonSetOpenPosition.Enabled = False
@@ -197,6 +206,10 @@ Public Class formMain
                 buttonStats.Enabled = False
                 buttonReset.Enabled = False
                 buttonHello.Enabled = False
+                buttonSetAccel.Enabled = False
+                buttonSetSpeed.Enabled = False
+                textStepperSpeed.Enabled = False
+                textStepperAccel.Enabled = False
 
             Case STATUS.IDLE
                 buttonConnect.Enabled = True
@@ -204,9 +217,6 @@ Public Class formMain
                 buttonExit.Enabled = False
                 buttonFlap.Enabled = True
                 buttonLED.Enabled = True
-                buttonNudgeCCW.Enabled = True
-                buttonNudgeCW.Enabled = True
-                textNudgeValue.Enabled = True
                 textOpenPosition.Enabled = True
                 buttonEL.Enabled = True
                 buttonSetOpenPosition.Enabled = True
@@ -215,7 +225,11 @@ Public Class formMain
                 buttonStats.Enabled = True
                 buttonReset.Enabled = True
                 buttonHello.Enabled = True
-                labelStatus.Text = "Arduino idle"
+                buttonSetAccel.Enabled = True
+                buttonSetSpeed.Enabled = True
+                textStepperSpeed.Enabled = True
+                textStepperAccel.Enabled = True
+
 
             Case STATUS.CLOSED, STATUS.PORT_ERROR
                 buttonConnect.Enabled = True
@@ -223,9 +237,6 @@ Public Class formMain
                 buttonExit.Enabled = True
                 buttonFlap.Enabled = False
                 buttonLED.Enabled = False
-                buttonNudgeCCW.Enabled = False
-                buttonNudgeCW.Enabled = False
-                textNudgeValue.Enabled = False
                 textOpenPosition.Enabled = False
                 buttonEL.Enabled = False
                 buttonSetOpenPosition.Enabled = False
@@ -234,6 +245,10 @@ Public Class formMain
                 buttonStats.Enabled = False
                 buttonReset.Enabled = False
                 buttonHello.Enabled = False
+                buttonSetAccel.Enabled = False
+                buttonSetSpeed.Enabled = False
+                textStepperSpeed.Enabled = False
+                textStepperAccel.Enabled = False
 
             Case STATUS.PORT_ERROR
                 buttonConnect.Enabled = False
@@ -241,9 +256,6 @@ Public Class formMain
                 buttonExit.Enabled = True
                 buttonFlap.Enabled = False
                 buttonLED.Enabled = False
-                buttonNudgeCCW.Enabled = False
-                buttonNudgeCW.Enabled = False
-                textNudgeValue.Enabled = False
                 textOpenPosition.Enabled = False
                 buttonEL.Enabled = False
                 buttonSetOpenPosition.Enabled = False
@@ -252,6 +264,10 @@ Public Class formMain
                 buttonStats.Enabled = False
                 buttonReset.Enabled = False
                 buttonHello.Enabled = False
+                buttonSetAccel.Enabled = False
+                buttonSetSpeed.Enabled = False
+                textStepperSpeed.Enabled = False
+                textStepperAccel.Enabled = False
 
         End Select
         Me.Refresh()
@@ -299,9 +315,6 @@ Public Class formMain
         ' Load the LEDs
         LoadLEDPins()
 
-        ' Nudge value
-        textNudgeValue.Text = My.Settings("userNudge")
-
         ' Open position
         textOpenPosition.Text = My.Settings("userOpenPosition")
 
@@ -321,24 +334,17 @@ Public Class formMain
 
     End Sub
 
-    Private Sub buttonHello_Click(sender As Object, e As EventArgs) Handles buttonHello.Click
+    Private Sub buttonHello_Click(sender As Object, e As EventArgs)
 
         Try
             _portStatus = STATUS.TRANSMIT
-            bgwSend.RunWorkerAsync(":HH#")
+            mySerialPort.WriteLine(":HH#")
 
         Catch
             Debug.WriteLine("ERROR in HELLO")
             _portStatus = STATUS.PORT_ERROR
 
         End Try
-    End Sub
-
-    Private Sub bgwSend_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgwSend.DoWork
-
-        portStatus = STATUS.TRANSMIT
-        mySerialPort.WriteLine(e.Argument.ToString())
-
     End Sub
 
     Dim rcvd As New Threading.AutoResetEvent(False)
@@ -376,6 +382,7 @@ Public Class formMain
         Const eol As Byte = Asc("#") 'EOL = LF
         Do
             If buf.Count > 0 Then 'some data present
+
                 'is it a complete message as defined by our protocol?
                 Dim idx As Integer
                 Do
@@ -394,7 +401,13 @@ Public Class formMain
                         'show message to user
 
                         Me.BeginInvoke(Sub()
-                                           textSerialData.Text += mess.ToString
+
+                                           Select Case mess.ToString()
+                                               Case ":ERR@01#"
+                                                   textSerialData.AppendText("Unknown command!")
+                                               Case Else
+                                                   textSerialData.AppendText(mess.ToString)
+                                           End Select
                                            'Label1.Text = mess.ToString
                                            'Label1.Refresh()
                                            _portStatus = STATUS.IDLE
@@ -433,4 +446,68 @@ Public Class formMain
         End Try
     End Sub
 
+    Private Sub buttonStats_Click(sender As Object, e As EventArgs) Handles buttonStats.Click
+
+        _portStatus = STATUS.TRANSMIT
+        mySerialPort.WriteLine(":ST#")
+
+    End Sub
+
+    Private Sub buttonSetZero_Click(sender As Object, e As EventArgs) Handles buttonSetZero.Click
+
+        _portStatus = STATUS.TRANSMIT
+        mySerialPort.WriteLine(":ZP#")
+
+    End Sub
+
+    Private Sub buttonSetOpenPosition_Click(sender As Object, e As EventArgs) Handles buttonSetOpenPosition.Click
+
+        If CInt(textOpenPosition.Text) > 0 And CInt(textOpenPosition.Text) <= 2000 Then
+            Select Case CInt(textOpenPosition.Text)
+                Case 1000 To 2000
+                    mySerialPort.WriteLine(":OP@" & textOpenPosition.Text & "#")
+                Case 100 To 999
+                    mySerialPort.WriteLine(":OP@0" & textOpenPosition.Text & "#")
+                Case 10 To 99
+                    mySerialPort.WriteLine(":OP@00" & textOpenPosition.Text & "#")
+                Case < 10
+                    mySerialPort.WriteLine(":OP@000" & textOpenPosition.Text & "#")
+            End Select
+        End If
+
+    End Sub
+
+    Private Sub buttonLED_Click(sender As Object, e As EventArgs) Handles buttonLED.Click
+
+    End Sub
+
+    Private Sub buttonSetAccel_Click(sender As Object, e As EventArgs) Handles buttonSetAccel.Click
+
+        If CInt(textStepperAccel.Text) > 0 And CInt(textStepperAccel.Text) <= 100 Then
+            Select Case CInt(textStepperAccel.Text)
+                Case 100
+                    mySerialPort.WriteLine(":AC@" & textStepperAccel.Text & "#")
+                Case 10 To 99
+                    mySerialPort.WriteLine(":AC@0" & textStepperAccel.Text & "#")
+                Case < 10
+                    mySerialPort.WriteLine(":AC@00" & textStepperAccel.Text & "#")
+            End Select
+        End If
+
+    End Sub
+
+    Private Sub buttonSetSpeed_Click(sender As Object, e As EventArgs) Handles buttonSetSpeed.Click
+
+        If CInt(textStepperSpeed.Text) > 0 And CInt(textStepperSpeed.Text) <= 500 Then
+            Select Case CInt(textStepperSpeed.Text)
+                Case 100 To 500
+                    mySerialPort.WriteLine(":SP@" & textStepperSpeed.Text & "#")
+                Case 10 To 99
+                    mySerialPort.WriteLine(":SP@0" & textStepperSpeed.Text & "#")
+                Case < 10
+                    mySerialPort.WriteLine(":SP@00" & textStepperSpeed.Text & "#")
+            End Select
+        End If
+
+    End Sub
 End Class
